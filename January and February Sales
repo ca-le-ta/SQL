@@ -48,3 +48,35 @@ SELECT product, SUM(quantity) as count FROM BIT_DB.FebSales
     GROUP BY product;
     
 #11. What was the average amount spent per account in February?
+SELECT (SUM(Quantity*price)/COUNT(custom.acctnum)) as "Avg Spend" 
+FROM BIT_DB.FebSales Feb
+     LEFT JOIN BIT_DB.customers custom
+     ON Feb.orderID = custom.order_id
+     
+     WHERE length(orderid) = 6 
+     AND orderid <> 'Order ID';
+
+#12.What was the average amount spent per account in February?
+SELECT (SUM(Quantity*price)/COUNT(custom.acctnum)) as "Avg Spend" 
+FROM BIT_DB.FebSales Feb
+     LEFT JOIN BIT_DB.customers custom
+     ON Feb.orderID = custom.order_id
+     
+     WHERE length(orderid) = 6 
+     AND orderid <> 'Order ID';
+
+#13. What was the average quantity of products purchased per account in February?
+SELECT (SUM(Quantity)/COUNT(custom.acctnum)) as "Avg Count"
+FROM BIT_DB.FebSales Feb
+     LEFT JOIN BIT_DB.customers custom
+     ON Feb.orderID = custom.order_id
+     
+     WHERE length(orderid) = 6 
+     AND orderid <> 'Order ID';
+
+#14. Which product brought in the most revenue in January and how much revenue did it bring in total?
+SELECT Product, SUM(Quantity*price) as "Revenue"
+FROM BIT_DB.JanSales
+    GROUP BY Product
+    ORDER BY Revenue DESC;
+    
