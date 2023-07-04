@@ -28,3 +28,20 @@ time_signature integer NOT NULL
 
 #Next, I explored the data using the following SQL. 
 
+#1. Which artists had more than one song appear in the op 50 songs of 2021?
+SELECT artist_name, count(*) as "song_count" FROM BIT_DB.Spotifydata
+    GROUP BY artist_name
+    HAVING song_count >1;
+
+#2. How many minutes of music are in the songs by Doja Cat?
+SELECT sum((duration_ms/1000)/60) FROM BIT_DB.Spotifydata
+    WHERE artist_name = "Doja Cat";
+
+#3. Which song has the highest danceability? 
+SELECT * FROM BIT_DB.Spotifydata
+    ORDER BY danceability DESC
+    LIMIT 1;
+
+#4. How many songs from this list contain a featured artist? 
+SELECT count(*) FROM BIT_DB.Spotifydata
+    WHERE track_name LIKE '%feat%';
