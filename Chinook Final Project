@@ -1,0 +1,41 @@
+--The following questions works with a dataset called chinook (provided through Break Into Tech), which represents a digital media store and includes tables for artists, albums, media tracks, invoices, and customers
+
+--How many customers are in each distinict country? 
+SELECT COUNT(CustomerId), Country
+FROM customers
+GROUP BY Country;
+
+--What are all of the tracks on the album American Idiot? 
+SELECT tracks.name
+FROM tracks
+JOIN albums
+ON tracks.Albumid=albums.AlbumId
+WHERE albums.title= "American Idiot";
+
+--In what city are most employees located?
+SELECT City, COUNT(*)
+FROM employees
+GROUP BY City;
+
+--How many customers did each Support Rep assist?
+SELECT e.FirstName, e.LastName, Count(c.CustomerId)
+FROM customers c
+JOIN employees e
+ON e.EmployeeId=c.SupportRepId
+GROUP BY SupportRepId;
+
+
+--What was the sales total for 2012? 
+SELECT SUM(Total)
+FROM invoices
+WHERE InvoiceDate like "2012%";
+
+--List the name of the song, artist, and album for each invoice line item.
+SELECT InvoiceId, tracks.Name as "Song Name", artists.Name as "Artist", Title as "Album" 
+FROM invoice_items
+LEFT JOIN tracks 
+ON invoice_items.Trackid=tracks.Trackid
+INNER JOIN albums
+ON tracks.AlbumId=albums.AlbumId
+INNER JOIN artists 
+ON albums.ArtistId=artists.ArtistId;
